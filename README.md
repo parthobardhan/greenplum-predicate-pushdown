@@ -1,1 +1,1 @@
-# greenlplum-predicate-pushdown
+# greenplum-predicate-pushdown
