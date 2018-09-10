@@ -49,11 +49,11 @@ for row in result:
 connection.close()
 ```
 
-4. executepush.sh contains the path of your Oracle client libraries and the predicate that you want pushed to Oracle.
-Update LD_LIBRARY_PATH and point to Oracle client libraries and QUERYFILTER to the predicate you want.
-<br>/<br/>
+4. executepush.sh contains the path of your Oracle client libraries, and the predicate that you want pushed to Oracle.
+Update LD_LIBRARY_PATH and point to Oracle client libraries on your greenplum master, and QUERYFILTER to the predicate you want.
+<br><br/>
 Here we are pushing the Name field and the value we want. <br/>
-Note: LD_LIBRARY_PATH (or corresponding variable) in the script below needs to be customized for OS which runs on your greenplum master instance. Here it has been customized for CentOS
+Note: LD_LIBRARY_PATH (or corresponding variable) in the script below needs to be customized for OS which runs on your greenplum master instance. The greenplum node used to test this was CentOS and the Oracle client libraries were installed in the path below:
 
 ## Case 1: When predicate exists in Oracle DB
 
@@ -90,7 +90,7 @@ gpadmin=# select * from test1;
 ##  Case 2: When predicate value DOES NOT EXIST in Oracle 
 
 8.
-Update LD_LIBRARY_PATH and point to Oracle client libraries and QUERYFILTER to the predicate you want.
+Update LD_LIBRARY_PATH and point to Oracle client libraries, and QUERYFILTER to the predicate you want.
 
 `$ vi executepush.sh `
 ``` 
