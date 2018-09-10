@@ -24,7 +24,7 @@ https://cx-oracle.readthedocs.io/en/latest/installation.html#quick-start-cx-orac
 
 2.
  
-`$ cd /home/gpadmin`
+Clone this repo.
  
 3. Update oracele username, password, hostname and service name of the database you are connecting to
  
@@ -50,6 +50,8 @@ connection.close()
 ```
 
 4. executepush.sh contains the path of your Oracle client libraries and the predicate that you want pushed to Oracle.
+Update LD_LIBRARY_PATH and point to Oracle client libraries and QUERYFILTER to the predicate you want.
+<br>/<br/>
 Here we are pushing the Name field and the value we want. <br/>
 Note: LD_LIBRARY_PATH (or corresponding variable) in the script below needs to be customized for OS which runs on your greenplum master instance. Here it has been customized for CentOS
 
@@ -88,8 +90,9 @@ gpadmin=# select * from test1;
 ##  Case 2: When predicate value DOES NOT EXIST in Oracle 
 
 8.
+Update LD_LIBRARY_PATH and point to Oracle client libraries and QUERYFILTER to the predicate you want.
 
-`$ cat executepush.sh `
+`$ vi executepush.sh `
 ``` 
 #!/bin/bash
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/oracle/12.1/client64/lib/
