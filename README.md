@@ -50,10 +50,10 @@ connection.close()
 ```
 
 4. executepush.sh contains the path of your Oracle client libraries and the predicate that you want pushed to Oracle.
-Here we are pushing the Name field and the value we want
+Here we are pushing the Name field and the value we want. \b
 Note: LD_LIBRARY_PATH (or corresponding variable) in the script below needs to be customized for OS which runs on your greenplum master instance. Here it has been customized for a CentOS
 
-# Case 1: When predicate exists in Oracle DB
+## Case 1: When predicate exists in Oracle DB
 
 $ cat executepush.sh 
 
@@ -85,7 +85,7 @@ gpadmin=# select * from test1;
   1 |  druid
 (1 row)
  ```
-# 8. Case 2: When predicate value DOES NOT EXIST in Oracle 
+## 8. Case 2: When predicate value DOES NOT EXIST in Oracle 
  
 `$ cat executepush.sh `
 ``` 
