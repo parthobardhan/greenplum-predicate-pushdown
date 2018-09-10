@@ -8,7 +8,7 @@ To start, create/ log into an Oracle database, create a table and insert a recor
 
 `Insert into test (id, name) values (1,'druid');`
 
-Select * from test;
+`Select * from test;`
 ```
 ID  NAME                
 ----- -----
