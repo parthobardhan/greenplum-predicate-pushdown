@@ -1,13 +1,21 @@
 # greenplum-predicate-pushdown
 
-On Oracle DB:
+This tutorial performs predicate pushdown from Greenplum into an Oracle database.
+
+To start, create/ log into an Oracle database, create a table and insert a record:
  
-select * from test;
- ID  NAME                
------ ----------
+Create table test (id number, name varchar2(20));
+
+Insert into test (id, name) values (1,'druid');
+
+Select * from test;
+```
+ID  NAME                
+----- -----
 1 druid           	
- 
-All the following commands are to be run on Greenplum MASTER
+```
+
+ssh into Greenplum MASTER
 
 1.
 
