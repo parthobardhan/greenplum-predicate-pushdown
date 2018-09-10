@@ -4,9 +4,9 @@ This tutorial performs predicate pushdown from Greenplum into an Oracle database
 
 To start, create/ log into an Oracle database, create a table and insert a record:
  
-Create table test (id number, name varchar2(20));
+`Create table test (id number, name varchar2(20));`
 
-Insert into test (id, name) values (1,'druid');
+`Insert into test (id, name) values (1,'druid');`
 
 Select * from test;
 ```
