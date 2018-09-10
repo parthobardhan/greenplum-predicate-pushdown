@@ -15,7 +15,7 @@ ID  NAME
 1 druid           	
 ```
 
-ssh into Greenplum MASTER
+Now run the following steps/commands on the Greenplum MASTER node
 
 1.
 
@@ -24,12 +24,13 @@ https://cx-oracle.readthedocs.io/en/latest/installation.html#quick-start-cx-orac
 
 2.
  
-$ cd /home/gpadmin
+`$ cd /home/gpadmin`
  
-3.
+3. Update oracele username, password, hostname and service name of the database you are connecting to
  
-$ cat pushpredicate.py 
+`$ vi pushpredicate.py `
 
+```
 import os
 import cx_Oracle
 from os import environ
@@ -46,58 +47,63 @@ for row in result:
     		print ''
 	print row[0],'|',row[1]
 connection.close()
+```
 
+4. executepush.sh contains the path of your Oracle client libraries and the predicate that you want pushed to Oracle.
+Here we are pushing the Name field and the value we want
+Note: LD_LIBRARY_PATH (or corresponding variable) in the script below needs to be customized for OS which runs on your greenplum master instance. Here it has been customized for a CentOS
 
-4. When predicate value EXISTS in Oracle
-Note: LD_LIBRARY_PATH (or corresponding variable) in the script below needs to be customized for the greenplum master OS. Here it has been customized for CentOS
+# Case 1: When predicate exists in Oracle DB
 
 $ cat executepush.sh 
 
+```
 #!/bin/bash
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/oracle/12.1/client64/lib/
 export QUERYFILTER="NAME='druid'"
 python /home/gpadmin/pushpredicate.py
- 
+ ```
 5.
-
+```
 $ psql
 psql (8.3.23)
 Type "help" for help.
  
 gpadmin=#
- 
+``` 
 6.
-
+```
 gpadmin=# create external web table test1(ID int, NAME varchar) EXECUTE '/home/gpadmin/executepush.sh' on MASTER FORMAT 'TEXT' ( DELIMITER '|' );
  
 CREATE EXTERNAL TABLE
- 
+ ```
  7.
- 
+``` 
 gpadmin=# select * from test1;
  id |  name 
 ----+--------
   1 |  druid
 (1 row)
+ ```
+# 8. Case 2: When predicate value DOES NOT EXIST in Oracle 
  
-8. When predicate value DOES NOT EXIST in Oracle 
- 
-$ cat executepush.sh 
- 
+`$ cat executepush.sh `
+``` 
 #!/bin/bash
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/oracle/12.1/client64/lib/
 export QUERYFILTER="NAME='groot'"
 python /home/gpadmin/pushpredicate.py
- 
+ ```
 9.
-
+```
 gpadmin=# create external web table test1(ID int, NAME varchar) EXECUTE '/home/gpadmin/executepush.sh' on MASTER FORMAT 'TEXT' ( DELIMITER '|' );
  
 CREATE EXTERNAL TABLE
- 
+``` 
 10..
- 
+``` 
 gpadmin=# select * from test1;
  id | name
 ----+------
 (0 rows)
+```
